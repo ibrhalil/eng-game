@@ -1,0 +1,124 @@
+{
+  "categories": [
+    {
+      "id": "greetings",
+      "name": "Greetings & Introductions",
+      "phrases": [
+        {
+          "id": "1",
+          "english": "Nice to meet you",
+          "turkish": "Seninle tanışmak güzel",
+          "pronunciation": "nays tu: mi:t ju:"
+        },
+        {
+          "id": "2",
+          "english": "How have you been?",
+          "turkish": "Nasılsın? (Uzun süredir görmeyenler için)",
+          "pronunciation": "hav hæv ju: bi:n"
+        },
+        {
+          "id": "3",
+          "english": "It's great to see you again",
+          "turkish": "Seni tekrar görmek harika",
+          "pronunciation": "ɪts greyt tu: si: ju: ageyn"
+        },
+        {
+          "id": "4",
+          "english": "Let me introduce myself",
+          "turkish": "Kendimi tanıtmama izin verin",
+          "pronunciation": "let mi: ɪntrədju:s maiself"
+        }
+      ]
+    },
+    {
+      "id": "shopping",
+      "name": "Shopping & Money",
+      "phrases": [
+        {
+          "id": "1",
+          "english": "How much does this cost?",
+          "turkish": "Bu ne kadar?",
+          "pronunciation": "hav mʌtʃ dʌz ðɪs kɒst"
+        },
+        {
+          "id": "2",
+          "english": "Do you have this in a different size?",
+          "turkish": "Bunu farklı bedende var mı?",
+          "pronunciation": "du: ju: hæv ðɪs ɪn ə dɪfrent saɪz"
+        },
+        {
+          "id": "3",
+          "english": "Can I pay by card?",
+          "turkish": "Kartla ödeyebilir miyim?",
+          "pronunciation": "kæn aɪ peɪ baɪ kɑ:d"
+        },
+        {
+          "id": "4",
+          "english": "Is there a discount?",
+          "turkish": "İndirim var mı?",
+          "pronunciation": "ɪz ðeər ə dɪskaʊnt"
+        }
+      ]
+    },
+    {
+      "id": "travel",
+      "name": "Travel & Transportation",
+      "phrases": [
+        {
+          "id": "1",
+          "english": "Where is the nearest hotel?",
+          "turkish": "En yakın otel nerede?",
+          "pronunciation": "weər ɪz ðə nɪərɪst hoʊtel"
+        },
+        {
+          "id": "2",
+          "english": "I need a taxi to the airport",
+          "turkish": "Havalimanına taksiye ihtiyacım var",
+          "pronunciation": "aɪ ni:d ə tæksi tu: ðə eərpɔ:t"
+        },
+        {
+          "id": "3",
+          "english": "What time does the train leave?",
+          "turkish": "Tren kaçta kalkıyor?",
+          "pronunciation": "wɒt taɪm dʌz ðə treɪn li:v"
+        },
+        {
+          "id": "4",
+          "english": "Could you recommend a good restaurant?",
+          "turkish": "İyi bir restoran önerebilir misiniz?",
+          "pronunciation": "kʊd ju: rɛkəmɛnd ə gʊd rɛstərɒnt"
+        }
+      ]
+    },
+    {
+      "id": "dining",
+      "name": "Dining & Food",
+      "phrases": [
+        {
+          "id": "1",
+          "english": "Can I see the menu, please?",
+          "turkish": "Menüyü görebilir miyim?",
+          "pronunciation": "kæn aɪ si: ðə mɛnju: pli:z"
+        },
+        {
+          "id": "2",
+          "english": "I'm allergic to nuts",
+          "turkish": "Kuruyemişe alerjim var",
+          "pronunciation": "aɪm əlɜ:dʒɪk tu: nʌts"
+        },
+        {
+          "id": "3",
+          "english": "The check, please",
+          "turkish": "Hesap, lütfen",
+          "pronunciation": "ðə tʃɛk pli:z"
+        },
+        {
+          "id": "4",
+          "english": "It was delicious, thank you",
+          "turkish": "Çok lezzetliydi, teşekkürler",
+          "pronunciation": "ɪt wɒz dɪlɪʃəs θæŋk ju:"
+        }
+      ]
+    }
+  ]
+}

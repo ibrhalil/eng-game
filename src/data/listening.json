@@ -1,0 +1,39 @@
+{
+  "exercises": [
+    {
+      "id": "1",
+      "title": "Daily Conversation at Coffee Shop",
+      "audioUrl": "/audio/coffee-shop.mp3",
+      "transcript": "Welcome to our coffee shop! How can I help you? I'd like a large cappuccino, please. Would you like that for here or to go? For here, please. That's $4.50. Here you go. Thank you! Enjoy your coffee!",
+      "level": "beginner"
+    },
+    {
+      "id": "2",
+      "title": "Job Interview Introduction",
+      "audioUrl": "/audio/interview.mp3",
+      "transcript": "Thank you for coming in today. Can you tell me about yourself? Of course. I graduated from university five years ago. I've been working in marketing since then. What are your strengths? I'm very organized and creative. I work well under pressure.",
+      "level": "intermediate"
+    },
+    {
+      "id": "3",
+      "title": "Business Meeting Discussion",
+      "audioUrl": "/audio/meeting.mp3",
+      "transcript": "Let's discuss the quarterly results. Overall, we've exceeded our targets. Our revenue increased by 15% compared to last quarter. However, we faced some challenges in the Asian market. I'd like to propose a new strategy for expansion. What are your thoughts on this approach?",
+      "level": "advanced"
+    },
+    {
+      "id": "4",
+      "title": "Asking for Directions",
+      "audioUrl": "/audio/directions.mp3",
+      "transcript": "Excuse me, could you tell me how to get to the train station? Sure, go straight down this street. Turn left at the traffic light. It's about a five-minute walk. Thank you so much! You're welcome!",
+      "level": "beginner"
+    },
+    {
+      "id": "5",
+      "title": "Making a Restaurant Reservation",
+      "audioUrl": "/audio/restaurant.mp3",
+      "transcript": "Good evening, Golden Restaurant. How can I help you? I'd like to make a reservation for two people, please. What date and time would you prefer? This Saturday at 7 PM. Perfect. Could I have your name and phone number?",
+      "level": "intermediate"
+    }
+  ]
+}

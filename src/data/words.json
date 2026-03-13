@@ -1,0 +1,213 @@
+{
+  "words": [
+    {
+      "id": "1",
+      "text": "Eloquent",
+      "pronunciation": "elokuvınt",
+      "meaning": "Etkileyici",
+      "meaningNote": "konuşma",
+      "example": "She gave an eloquent speech at the conference.",
+      "partOfSpeech": "adjective",
+      "difficulty": "hard",
+      "isActive": true
+    },
+    {
+      "id": "2",
+      "text": "Achievement",
+      "pronunciation": "ıçiivmınt",
+      "meaning": "Başarı",
+      "example": "Winning the championship was a great achievement.",
+      "partOfSpeech": "noun",
+      "difficulty": "medium",
+      "isActive": true
+    },
+    {
+      "id": "3",
+      "text": "Perseverance",
+      "pronunciation": "pörsivirıns",
+      "meaning": "Azim",
+      "example": "His perseverance paid off when he got the job.",
+      "partOfSpeech": "noun",
+      "difficulty": "hard",
+      "isActive": true
+    },
+    {
+      "id": "4",
+      "text": "Curious",
+      "pronunciation": "kyuriyıs",
+      "meaning": "Meraklı",
+      "example": "The curious child asked many questions.",
+      "partOfSpeech": "adjective",
+      "difficulty": "easy",
+      "isActive": true
+    },
+    {
+      "id": "5",
+      "text": "Enhance",
+      "pronunciation": "inhens",
+      "meaning": "Geliştirmek",
+      "example": "Technology can enhance our learning experience.",
+      "partOfSpeech": "verb",
+      "difficulty": "medium",
+      "isActive": true
+    },
+    {
+      "id": "6",
+      "text": "Brilliant",
+      "pronunciation": "brilyınt",
+      "meaning": "Parlak",
+      "meaningNote": "zeki",
+      "example": "She had a brilliant idea to solve the problem.",
+      "partOfSpeech": "adjective",
+      "difficulty": "easy",
+      "isActive": true
+    },
+    {
+      "id": "7",
+      "text": "Innovate",
+      "pronunciation": "inıveyt",
+      "meaning": "Yenilik yapmak",
+      "example": "Companies must innovate to stay competitive.",
+      "partOfSpeech": "verb",
+      "difficulty": "medium",
+      "isActive": true
+    },
+    {
+      "id": "8",
+      "text": "Resilient",
+      "pronunciation": "rizilyınt",
+      "meaning": "Dayanıklı",
+      "example": "Children are often more resilient than adults.",
+      "partOfSpeech": "adjective",
+      "difficulty": "hard",
+      "isActive": true
+    },
+    {
+      "id": "9",
+      "text": "Opportunity",
+      "pronunciation": "opırtunıti",
+      "meaning": "Fırsat",
+      "example": "This is a great opportunity to learn new skills.",
+      "partOfSpeech": "noun",
+      "difficulty": "easy",
+      "isActive": true
+    },
+    {
+      "id": "10",
+      "text": "Collaborate",
+      "pronunciation": "kılaborayt",
+      "meaning": "İş birliği yapmak",
+      "example": "Let's collaborate on this project together.",
+      "partOfSpeech": "verb",
+      "difficulty": "medium",
+      "isActive": true
+    },
+    {
+      "id": "11",
+      "text": "Hundred",
+      "pronunciation": "handrıd",
+      "meaning": "Yüz",
+      "meaningNote": "sayı",
+      "example": "I have a hundred books at home.",
+      "partOfSpeech": "numeral",
+      "difficulty": "easy",
+      "isActive": true
+    },
+    {
+      "id": "12",
+      "text": "Face",
+      "pronunciation": "feys",
+      "meaning": "Yüz",
+      "meaningNote": "vücut bölümü",
+      "example": "She washed her face with cold water.",
+      "partOfSpeech": "noun",
+      "difficulty": "easy",
+      "isActive": true
+    },
+    {
+      "id": "13",
+      "text": "Book",
+      "pronunciation": "buk",
+      "meaning": "Kitap",
+      "example": "This book is very interesting.",
+      "partOfSpeech": "noun",
+      "difficulty": "easy",
+      "isActive": true
+    },
+    {
+      "id": "14",
+      "text": "Book",
+      "pronunciation": "buk",
+      "meaning": "Rezervasyon yapmak",
+      "meaningNote": "fiil",
+      "example": "I need to book a hotel room for tomorrow.",
+      "partOfSpeech": "verb",
+      "difficulty": "medium",
+      "isActive": true
+    },
+    {
+      "id": "15",
+      "text": "Present",
+      "pronunciation": "prezınt",
+      "meaning": "Hediye",
+      "meaningNote": "isim",
+      "example": "He gave me a present on my birthday.",
+      "partOfSpeech": "noun",
+      "difficulty": "easy",
+      "isActive": true
+    },
+    {
+      "id": "16",
+      "text": "Present",
+      "pronunciation": "prizent",
+      "meaning": "Sunmak",
+      "meaningNote": "fiil",
+      "example": "She will present the report tomorrow.",
+      "partOfSpeech": "verb",
+      "difficulty": "medium",
+      "isActive": true
+    },
+    {
+      "id": "17",
+      "text": "Charge",
+      "pronunciation": "çarc",
+      "meaning": "Şarj etmek",
+      "meaningNote": "fiil",
+      "example": "Please charge your phone before leaving.",
+      "partOfSpeech": "verb",
+      "difficulty": "medium",
+      "isActive": true
+    },
+    {
+      "id": "18",
+      "text": "Charge",
+      "pronunciation": "çarc",
+      "meaning": "Ücret",
+      "meaningNote": "isim",
+      "example": "There is no extra charge for delivery.",
+      "partOfSpeech": "noun",
+      "difficulty": "medium",
+      "isActive": true
+    },
+    {
+      "id": "19",
+      "text": "Run",
+      "pronunciation": "ran",
+      "meaning": "Koşmak",
+      "example": "I run every morning in the park.",
+      "partOfSpeech": "verb",
+      "difficulty": "easy",
+      "isActive": true
+    },
+    {
+      "id": "20",
+      "text": "Calm",
+      "pronunciation": "kaam",
+      "meaning": "Sakin",
+      "example": "Try to stay calm during the exam.",
+      "partOfSpeech": "adjective",
+      "difficulty": "easy",
+      "isActive": true
+    }
+  ]
+}

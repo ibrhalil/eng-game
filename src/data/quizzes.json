@@ -1,0 +1,74 @@
+{
+  "quizzes": [
+    {
+      "id": "1",
+      "question": "What does 'eloquent' mean?",
+      "options": ["Silent", "Fluent and persuasive", "Angry", "Sad"],
+      "correctAnswer": 1,
+      "explanation": "Eloquent means fluent or persuasive in speaking or writing."
+    },
+    {
+      "id": "2",
+      "word": "Which word means 'to make something better'?",
+      "options": ["Worsen", "Enhance", "Ignore", "Destroy"],
+      "correctAnswer": 1,
+      "explanation": "Enhance means to improve or make something better."
+    },
+    {
+      "id": "3",
+      "question": "What is 'perseverance'?",
+      "options": ["Giving up", "Continuing despite difficulty", "Being lazy", "Feeling sad"],
+      "correctAnswer": 1,
+      "explanation": "Perseverance is the continued effort to do or achieve something despite difficulties."
+    },
+    {
+      "id": "4",
+      "question": "Choose the correct meaning of 'resilient'",
+      "options": ["Weak", "Fragile", "Able to recover quickly", "Slow"],
+      "correctAnswer": 2,
+      "explanation": "Resilient means able to recover quickly from difficulties."
+    },
+    {
+      "id": "5",
+      "question": "What does 'innovate' mean?",
+      "options": ["Copy others", "Make new ideas or methods", "Stay the same", "Follow rules"],
+      "correctAnswer": 1,
+      "explanation": "Innovate means to make changes in something established by introducing new methods or ideas."
+    },
+    {
+      "id": "6",
+      "question": "Which word describes a 'great achievement'?",
+      "options": ["Failure", "Milestone", "Mistake", "Boredom"],
+      "correctAnswer": 1,
+      "explanation": "A milestone is an important event or achievement."
+    },
+    {
+      "id": "7",
+      "question": "What does 'curious' mean?",
+      "options": ["Indifferent", "Eager to know", "Angry", "Tired"],
+      "correctAnswer": 1,
+      "explanation": "Curious means having a strong desire to know or learn something."
+    },
+    {
+      "id": "8",
+      "question": "Choose the meaning of 'brilliant'",
+      "options": ["Dark", "Very intelligent or bright", "Slow", "Quiet"],
+      "correctAnswer": 1,
+      "explanation": "Brilliant means exceptionally clever or talented."
+    },
+    {
+      "id": "9",
+      "question": "What is an 'opportunity'?",
+      "options": ["A problem", "A chance or possibility", "A punishment", "A loss"],
+      "correctAnswer": 1,
+      "explanation": "An opportunity is a favorable time or situation for doing something."
+    },
+    {
+      "id": "10",
+      "question": "What does 'collaborate' mean?",
+      "options": ["Work alone", "Work together", "Argue", "Give up"],
+      "correctAnswer": 1,
+      "explanation": "Collaborate means to work jointly with others."
+    }
+  ]
+}

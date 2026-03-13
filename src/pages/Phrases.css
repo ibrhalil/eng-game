@@ -1,0 +1,148 @@
+.phrases {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.phrases h1 {
+  text-align: center;
+  margin: 0;
+}
+
+.phrases-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.tab {
+  padding: 0.75rem 1.25rem;
+  border: none;
+  background: var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.tab:hover {
+  background: var(--hover-bg);
+}
+
+.tab.active {
+  background: var(--accent);
+  color: white;
+}
+
+.phrases-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.phrase-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.phrase-main h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.turkish {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.phrase-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.phrase-pronunciation {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+  font-style: italic;
+}
+
+.play-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: var(--border-color);
+  cursor: pointer;
+  transition: background 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.play-btn svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.play-btn:hover {
+  background: var(--hover-bg);
+}
+
+.play-btn.playing {
+  background: var(--accent);
+}
+
+@media (max-width: 600px) {
+  .phrases {
+    padding: 1rem;
+  }
+
+  .phrases-subtitle {
+    margin-bottom: 1rem;
+  }
+
+  .tabs {
+    margin-bottom: 1rem;
+  }
+
+  .tab {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .phrase-card {
+    padding: 1rem;
+  }
+
+  .phrase-main h3 {
+    font-size: 1.1rem;
+  }
+
+  .phrase-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .phrase-pronunciation {
+    font-size: 0.8rem;
+  }
+}
