@@ -40,3 +40,31 @@ export interface PhraseCategory {
   name: string;
   phrases: Phrase[];
 }
+
+export interface GuestUser {
+  id: string;
+  displayName: string;
+  createdAt: string;
+  lastActiveAt: string;
+  version: 1;
+}
+
+export type FlashcardStatus = 'review' | 'learned';
+
+export interface FlashcardProgressItem {
+  cardId: string;
+  status: FlashcardStatus | null;
+  isFavorite: boolean;
+  exposureCount: number;
+  lastSeenAt: string | null;
+  statusUpdatedAt: string | null;
+  favoriteUpdatedAt: string | null;
+  updatedAt: string;
+}
+
+export interface FlashcardProgress {
+  version: 2;
+  userId: string;
+  items: Record<string, FlashcardProgressItem>;
+  updatedAt: string;
+}

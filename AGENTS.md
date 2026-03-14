@@ -40,12 +40,13 @@
 - [x] Implement Font Size selection (small, medium, large)
 - [x] Add Mobile Responsive design
 - [x] Add flashcard pronunciation button (Web Speech API)
+- [x] Add local guest session with auto-generated username
+- [x] Add local progress tracking context (quiz + flashcards)
 
 ---
 
 ## ⏳ Pending Tasks
 
-- [ ] Add progress tracking system with Context
 - [ ] Add backend integration
 - [ ] Add actual audio files
 - [ ] Add user authentication (optional)
@@ -71,7 +72,12 @@ src/
 │   ├── listening.json   # Listening exercises
 │   └── phrases.json     # Speaking phrases
 ├── context/             # React Context
-│   └── ThemeContext.tsx # Theme, font, fontSize management
+│   ├── ThemeContext.tsx    # Theme, font, fontSize management
+│   ├── GuestContext.tsx    # Local guest session management
+│   ├── ProgressContext.tsx # User progress management
+│   ├── useTheme.ts
+│   ├── useGuest.ts
+│   └── useProgress.ts
 ├── types/               # TypeScript interfaces
 │   └── index.ts
 ├── App.tsx              # Main app component
@@ -91,6 +97,30 @@ Manages:
 - **fontSize**: 'small' (14px) | 'medium' (16px) | 'large' (18px)
 
 All settings persisted to localStorage.
+
+---
+
+## 👤 Guest Session & Progress
+
+### GuestContext (`src/context/GuestContext.tsx`)
+Manages:
+- **guestUser.id**: local guest identity (UUID/random)
+- **guestUser.displayName**: auto name (`Misafir-XXXX`)
+- **guestUser.createdAt / lastActiveAt**
+
+Storage:
+- `guest.info`
+
+### ProgressContext (`src/context/ProgressContext.tsx`)
+Manages:
+- **flashcard progress** (user + card based)
+- **status**: `learned | review` (favorite'dan bagimsiz)
+- **favorite state**: `isFavorite`
+- **exposure count**: `exposureCount` (kart kullaniciya kac kez gosterildi)
+
+Storage:
+- `progress.flashcard`
+- Progress data includes `userId` to stay compatible with future backend sync flow.
 
 ---
 
