@@ -42,6 +42,8 @@
 - [x] Add flashcard pronunciation button (Web Speech API)
 - [x] Add local guest session with auto-generated username
 - [x] Add local progress tracking context (quiz + flashcards)
+- [x] Upgrade flashcards with Tinder-like swipe animation and action overlay
+- [x] Add per-action swipe sound effects with settings toggle
 
 ---
 
@@ -95,6 +97,7 @@ Manages:
 - **theme**: 'light' | 'dark'
 - **font**: 'system' | 'serif' | 'mono'
 - **fontSize**: 'small' (14px) | 'medium' (16px) | 'large' (18px)
+- **soundEnabled**: flashcard swipe sound effects on/off
 
 All settings persisted to localStorage.
 

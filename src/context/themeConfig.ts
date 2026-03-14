@@ -6,6 +6,7 @@ export const STORAGE_KEYS = {
   theme: 'theme',
   font: 'font',
   fontSize: 'fontSize',
+  soundEnabled: 'soundEnabled',
 } as const;
 
 export const FONTS: Record<Font, string> = {

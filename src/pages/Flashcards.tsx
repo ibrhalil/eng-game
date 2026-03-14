@@ -6,12 +6,16 @@ import FlashcardDeck from '../features/flashcards/components/FlashcardDeck';
 import FlashcardsHeader from '../features/flashcards/components/FlashcardsHeader';
 import SwipeIndicators from '../features/flashcards/components/SwipeIndicators';
 import { useFlashcardSwipe } from '../features/flashcards/hooks/useFlashcardSwipe';
+import { useSwipeSounds } from '../features/flashcards/hooks/useSwipeSounds';
 import { useProgress } from '../context/useProgress';
+import { useTheme } from '../context/useTheme';
 import './Flashcards.css';
 
 const Flashcards = () => {
   const words = wordsData.words as Word[];
   const { progress, setCardFavorite, setCardStatus, trackCardExposure } = useProgress();
+  const { soundEnabled } = useTheme();
+  const { playSwipeSound } = useSwipeSounds(soundEnabled);
 
   const initialStatuses = useMemo(() => {
     return Object.entries(progress.items).reduce<Record<string, 'learned' | 'review'>>((accumulator, [cardId, item]) => {
@@ -38,6 +42,8 @@ const Flashcards = () => {
     currentIndex,
     currentWord,
     dragDirection,
+    swipeFeedbackDirection,
+    swipeFeedbackStrength,
     handleSwipe,
     isFlipped,
     onPointerCancel,
@@ -50,6 +56,7 @@ const Flashcards = () => {
     initialFavorites,
     onStatusChange: setCardStatus,
     onFavoriteChange: setCardFavorite,
+    onAction: playSwipeSound,
   });
 
   const lastTrackedCardIdRef = useRef<string | null>(null);
@@ -86,6 +93,8 @@ const Flashcards = () => {
         isFavorite={isCurrentFavorite}
         isFlipped={isFlipped}
         cardStyle={cardStyle}
+        swipeFeedbackDirection={swipeFeedbackDirection}
+        swipeFeedbackStrength={swipeFeedbackStrength}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}

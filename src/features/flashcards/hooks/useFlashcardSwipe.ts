@@ -31,6 +31,8 @@ interface UseFlashcardSwipeResult {
   isCurrentFavorite: boolean;
   currentWord: Word | null;
   cardStyle: CSSProperties;
+  swipeFeedbackDirection: SwipeDirection | null;
+  swipeFeedbackStrength: number;
   setIsFlipped: (value: boolean | ((value: boolean) => boolean)) => void;
   handleSwipe: (direction: SwipeDirection) => void;
   onPointerDown: (event: ReactPointerEvent<HTMLDivElement>) => void;
@@ -44,6 +46,7 @@ interface UseFlashcardSwipeOptions {
   initialFavorites?: Record<string, boolean>;
   onStatusChange?: (wordId: string, status: Exclude<WordAction, 'favorite'>) => void;
   onFavoriteChange?: (wordId: string, isFavorite: boolean) => void;
+  onAction?: (direction: SwipeDirection) => void;
 }
 
 const getExitStyle = (direction: SwipeDirection, fromOffset: DragOffset = { x: 0, y: 0 }): CSSProperties => {
@@ -82,6 +85,7 @@ export const useFlashcardSwipe = (words: Word[], options?: UseFlashcardSwipeOpti
   const initialFavorites = options?.initialFavorites;
   const onStatusChange = options?.onStatusChange;
   const onFavoriteChange = options?.onFavoriteChange;
+  const onAction = options?.onAction;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -92,6 +96,7 @@ export const useFlashcardSwipe = (words: Word[], options?: UseFlashcardSwipeOpti
   const [dragOffset, setDragOffset] = useState<DragOffset>({ x: 0, y: 0 });
   const [isDraggingUi, setIsDraggingUi] = useState(false);
   const [exitStyle, setExitStyle] = useState<CSSProperties | null>(null);
+  const [swipeFeedbackStrength, setSwipeFeedbackStrength] = useState(0);
 
   const pointerDown = useRef(false);
   const pointerId = useRef<number | null>(null);
@@ -111,6 +116,7 @@ export const useFlashcardSwipe = (words: Word[], options?: UseFlashcardSwipeOpti
     setIsDraggingUi(false);
     setDragOffset({ x: 0, y: 0 });
     setDragDirection(null);
+    setSwipeFeedbackStrength(0);
   }, []);
 
   const handleSwipe = useCallback(
@@ -125,6 +131,7 @@ export const useFlashcardSwipe = (words: Word[], options?: UseFlashcardSwipeOpti
           [currentWord.id]: false,
         }));
         onFavoriteChange?.(currentWord.id, false);
+        onAction?.('down');
         resetPointer();
         return;
       }
@@ -135,17 +142,20 @@ export const useFlashcardSwipe = (words: Word[], options?: UseFlashcardSwipeOpti
           [currentWord.id]: true,
         }));
         onFavoriteChange?.(currentWord.id, true);
+        onAction?.('up');
         resetPointer();
         return;
       }
 
       const status = STATUS_BY_DIRECTION[direction as 'left' | 'right'];
       isAnimating.current = true;
+      setSwipeFeedbackStrength(1);
       setStatuses((previousStatuses) => ({
         ...previousStatuses,
         [currentWord.id]: status,
       }));
       onStatusChange?.(currentWord.id, status);
+      onAction?.(direction);
 
       setTimeout(() => {
         setIsDraggingUi(false);
@@ -162,7 +172,7 @@ export const useFlashcardSwipe = (words: Word[], options?: UseFlashcardSwipeOpti
         isAnimating.current = false;
       }, SWIPE_RELEASE_DELAY_MS + SWIPE_EXIT_ANIMATION_MS);
     },
-    [currentWord, onFavoriteChange, onStatusChange, resetPointer, words.length]
+    [currentWord, onAction, onFavoriteChange, onStatusChange, resetPointer, words.length]
   );
 
   const handleKeyboard = useCallback(
@@ -230,15 +240,21 @@ export const useFlashcardSwipe = (words: Word[], options?: UseFlashcardSwipeOpti
       return {
         ...baseStyle,
         ...DRAG_BORDER_STYLE_BY_DIRECTION[dragDirection],
-        transition: isDraggingUi ? 'none' : undefined,
+        transition: isDraggingUi
+          ? 'none'
+          : 'transform 230ms cubic-bezier(0.22, 1, 0.36, 1), opacity 280ms ease, border-color 180ms ease, box-shadow 180ms ease',
       };
     }
 
     return {
       ...baseStyle,
-      transition: isDraggingUi ? 'none' : undefined,
+      transition: isDraggingUi
+        ? 'none'
+        : 'transform 230ms cubic-bezier(0.22, 1, 0.36, 1), opacity 280ms ease, border-color 180ms ease, box-shadow 180ms ease',
     };
   }, [dragDirection, dragOffset.x, dragOffset.y, exitStyle, isDraggingUi, swiped]);
+
+  const swipeFeedbackDirection = swiped ?? dragDirection;
 
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (isAnimating.current) {
@@ -265,8 +281,10 @@ export const useFlashcardSwipe = (words: Word[], options?: UseFlashcardSwipeOpti
     const deltaY = event.clientY - startY.current;
     const absX = Math.abs(deltaX);
     const absY = Math.abs(deltaY);
+    const dominantOffset = Math.max(absX, absY);
 
     setDragOffset({ x: deltaX, y: deltaY });
+    setSwipeFeedbackStrength(Math.min(1, dominantOffset / SWIPE_THRESHOLD));
 
     if (absX > DEAD_ZONE || absY > DEAD_ZONE) {
       hasMoved.current = true;
@@ -327,6 +345,8 @@ export const useFlashcardSwipe = (words: Word[], options?: UseFlashcardSwipeOpti
     isCurrentFavorite,
     currentWord,
     cardStyle,
+    swipeFeedbackDirection,
+    swipeFeedbackStrength,
     setIsFlipped,
     handleSwipe,
     onPointerDown,

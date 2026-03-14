@@ -22,6 +22,8 @@ npm run dev
 Kelime kartları ile yeni kelimeler öğrenin. Kartın ön yüzünde kelime, arka yüzünde anlam ve örnek cümle.
 
 - Kartin sag altindaki play butonu ile kelimeyi Web Speech API kullanarak sesli dinleyebilirsiniz.
+- Tinder benzeri kaydirma efekti ile kartlari sola/saga/yukari/asagi aksiyonlayabilirsiniz.
+- Swipe aksiyonlari icin farkli ses efektleri vardir (Ayarlar > Ses Efektleri ile ac/kapat).
 
 Word entity (basit ve servis dostu):
 - `id`: benzersiz kimlik
