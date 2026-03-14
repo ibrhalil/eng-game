@@ -82,6 +82,10 @@
   align-items: center;
 }
 
+.setting-row-spaced {
+  margin-top: 0.75rem;
+}
+
 .setting-row span {
   color: var(--text-primary);
 }

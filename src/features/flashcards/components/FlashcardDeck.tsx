@@ -15,6 +15,8 @@ interface FlashcardDeckProps {
   isFavorite: boolean;
   isFlipped: boolean;
   cardStyle: CSSProperties;
+  swipeFeedbackDirection: 'left' | 'right' | 'up' | 'down' | null;
+  swipeFeedbackStrength: number;
   onPointerDown: (event: ReactPointerEvent<HTMLDivElement>) => void;
   onPointerMove: (event: ReactPointerEvent<HTMLDivElement>) => void;
   onPointerUp: (event: ReactPointerEvent<HTMLDivElement>) => void;
@@ -28,6 +30,8 @@ const FlashcardDeck = ({
   isFavorite,
   isFlipped,
   cardStyle,
+  swipeFeedbackDirection,
+  swipeFeedbackStrength,
   onPointerDown,
   onPointerMove,
   onPointerUp,
@@ -36,6 +40,20 @@ const FlashcardDeck = ({
 }: FlashcardDeckProps) => {
   const StatusIcon = currentStatus === 'learned' ? FiCheck : currentStatus === 'review' ? FiRotateCcw : null;
   const { isSpeaking, isSupported, togglePronunciation } = useWordPronunciation(word.text);
+  const swipeLabel =
+    swipeFeedbackDirection === 'right'
+      ? 'LEARNED'
+      : swipeFeedbackDirection === 'left'
+        ? 'REVIEW'
+        : swipeFeedbackDirection === 'up'
+          ? 'FAVORITE'
+          : swipeFeedbackDirection === 'down'
+            ? 'UNFAVORITE'
+            : '';
+  const mergedCardStyle = {
+    ...cardStyle,
+    '--swipe-overlay-opacity': String(Math.min(0.16, swipeFeedbackStrength * 0.16)),
+  } as CSSProperties;
 
   const handlePronouncePointerDown = (event: ReactPointerEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -49,13 +67,24 @@ const FlashcardDeck = ({
   return (
     <div className="card-area">
       <div
-        className={`card-container ${isFlipped ? 'flipped' : ''}`}
-        style={cardStyle}
+        className={`card-container ${isFlipped ? 'flipped' : ''} ${swipeFeedbackDirection ? `drag-${swipeFeedbackDirection}` : ''}`}
+        style={mergedCardStyle}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerCancel}
       >
+        {swipeFeedbackDirection && (
+          <div
+            className={`swipe-stamp ${swipeFeedbackDirection}`}
+            style={{
+              opacity: Math.min(1, 0.2 + swipeFeedbackStrength * 0.9),
+              transform: `scale(${0.9 + swipeFeedbackStrength * 0.14}) rotate(${swipeFeedbackDirection === 'left' || swipeFeedbackDirection === 'down' ? '-9deg' : '9deg'})`,
+            }}
+          >
+            {swipeLabel}
+          </div>
+        )}
         <div className={`card-inner ${isFlipped ? 'flipped' : ''}`}>
           <div className="card-front" onDoubleClick={onToggleFlip}>
             <span className={`pos-badge ${word.partOfSpeech}`}>{PART_OF_SPEECH_LABEL[word.partOfSpeech]}</span>
@@ -65,7 +94,7 @@ const FlashcardDeck = ({
               </div>
             )}
             {isFavorite && (
-              <div className="card-favorite-badge" aria-label="Marked as favorite">
+              <div className={currentStatus ? 'card-favorite-badge' : 'card-favorite-badge solo'} aria-label="Marked as favorite">
                 <FiStar aria-hidden="true" />
               </div>
             )}
@@ -83,7 +112,6 @@ const FlashcardDeck = ({
             >
               {isSpeaking ? <FiSquare aria-hidden="true" /> : <FiPlay aria-hidden="true" />}
             </button>
-            <span className="hint">Tap to flip • Swipe to act</span>
           </div>
 
           <div className="card-back" onDoubleClick={onToggleFlip}>

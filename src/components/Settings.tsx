@@ -1,5 +1,6 @@
 import { useTheme } from '../context/useTheme';
 import { FiX } from 'react-icons/fi';
+import { FiVolume2, FiVolumeX } from 'react-icons/fi';
 import { HiOutlineLightBulb, HiOutlineMoon } from 'react-icons/hi2';
 import './Settings.css';
 
@@ -9,7 +10,7 @@ interface SettingsProps {
 }
 
 const Settings = ({ isOpen, onClose }: SettingsProps) => {
-  const { theme, font, fontSize, toggleTheme, setFont, setFontSize } = useTheme();
+  const { theme, font, fontSize, soundEnabled, toggleTheme, setFont, setFontSize, setSoundEnabled } = useTheme();
 
   if (!isOpen) return null;
 
@@ -34,6 +35,17 @@ const Settings = ({ isOpen, onClose }: SettingsProps) => {
                 <HiOutlineMoon className="settings-icon" aria-hidden="true" />
               )}
               <span>{theme === 'light' ? 'Açık' : 'Koyu'}</span>
+            </button>
+          </div>
+          <div className="setting-row setting-row-spaced">
+            <span>Ses Efektleri</span>
+            <button className="theme-btn" onClick={() => setSoundEnabled(!soundEnabled)}>
+              {soundEnabled ? (
+                <FiVolume2 className="settings-icon" aria-hidden="true" />
+              ) : (
+                <FiVolumeX className="settings-icon" aria-hidden="true" />
+              )}
+              <span>{soundEnabled ? 'Açık' : 'Kapalı'}</span>
             </button>
           </div>
         </div>
