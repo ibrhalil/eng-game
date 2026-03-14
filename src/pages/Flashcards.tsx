@@ -1,20 +1,40 @@
+import { useEffect, useMemo, useRef } from 'react';
 import wordsData from '../data/words.json';
 import type { Word } from '../types';
 import FlashcardActions from '../features/flashcards/components/FlashcardActions';
 import FlashcardDeck from '../features/flashcards/components/FlashcardDeck';
 import FlashcardsHeader from '../features/flashcards/components/FlashcardsHeader';
-import ProgressDots from '../features/flashcards/components/ProgressDots';
 import SwipeIndicators from '../features/flashcards/components/SwipeIndicators';
 import { useFlashcardSwipe } from '../features/flashcards/hooks/useFlashcardSwipe';
+import { useProgress } from '../context/useProgress';
 import './Flashcards.css';
 
 const Flashcards = () => {
   const words = wordsData.words as Word[];
+  const { progress, setCardFavorite, setCardStatus, trackCardExposure } = useProgress();
+
+  const initialStatuses = useMemo(() => {
+    return Object.entries(progress.items).reduce<Record<string, 'learned' | 'review'>>((accumulator, [cardId, item]) => {
+      if (item.status) {
+        accumulator[cardId] = item.status;
+      }
+      return accumulator;
+    }, {});
+  }, [progress.items]);
+
+  const initialFavorites = useMemo(() => {
+    return Object.entries(progress.items).reduce<Record<string, boolean>>((accumulator, [cardId, item]) => {
+      if (item.isFavorite) {
+        accumulator[cardId] = true;
+      }
+      return accumulator;
+    }, {});
+  }, [progress.items]);
 
   const {
-    actions,
     cardStyle,
-    currentAction,
+    currentStatus,
+    isCurrentFavorite,
     currentIndex,
     currentWord,
     dragDirection,
@@ -25,7 +45,27 @@ const Flashcards = () => {
     onPointerMove,
     onPointerUp,
     setIsFlipped,
-  } = useFlashcardSwipe(words);
+  } = useFlashcardSwipe(words, {
+    initialStatuses,
+    initialFavorites,
+    onStatusChange: setCardStatus,
+    onFavoriteChange: setCardFavorite,
+  });
+
+  const lastTrackedCardIdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!currentWord) {
+      return;
+    }
+
+    if (lastTrackedCardIdRef.current === currentWord.id) {
+      return;
+    }
+
+    trackCardExposure(currentWord.id);
+    lastTrackedCardIdRef.current = currentWord.id;
+  }, [currentWord, trackCardExposure]);
 
   if (words.length === 0 || !currentWord) {
     return (
@@ -42,7 +82,8 @@ const Flashcards = () => {
 
       <FlashcardDeck
         word={currentWord}
-        currentAction={currentAction}
+        currentStatus={currentStatus}
+        isFavorite={isCurrentFavorite}
         isFlipped={isFlipped}
         cardStyle={cardStyle}
         onPointerDown={onPointerDown}
@@ -56,12 +97,6 @@ const Flashcards = () => {
         isFlipped={isFlipped}
         onSwipe={handleSwipe}
         onToggleFlip={() => setIsFlipped((previous) => !previous)}
-      />
-
-      <ProgressDots
-        total={words.length}
-        currentIndex={currentIndex}
-        isDone={(index) => Boolean(actions[words[index].id])}
       />
     </div>
   );

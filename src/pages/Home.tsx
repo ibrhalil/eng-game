@@ -5,13 +5,19 @@ import {
   HiOutlinePencilSquare,
 } from 'react-icons/hi2';
 import { FiHeadphones } from 'react-icons/fi';
+import { useGuest } from '../context/useGuest';
 import './Home.css';
 
 const Home = () => {
+  const { guestUser } = useGuest();
+
   return (
     <div className="home">
       <h1>Eng-Game</h1>
       <p className="home-subtitle">İngilizce Öğrenme Platformu</p>
+      <p className="home-subtitle">
+        Hos geldin, {guestUser.displayName}. Verilerin su an bu cihazda saklaniyor.
+      </p>
       
       <div className="cards-grid">
         <Link to="/flashcards" className="card">

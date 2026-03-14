@@ -37,11 +37,19 @@ Word entity (basit ve servis dostu):
 ### Quiz
 Çoktan seçmeli sorular ile bilginizi test edin.
 
+- Quiz sonucunda deneme sayisi, son skor ve en iyi skor localStorage'da tutulur.
+
 ### Listening
 Dinleme alıştırmaları ile İngilizce dinleme becerilerinizi geliştirin.
 
 ### Speaking Phrases
 Günlük hayatta kullanılan İngilizce kalıplar ve telaffuz ipuçları.
+
+### Misafir Oturumu (Local)
+- Uygulama ilk acilista otomatik bir misafir kullanici olusturur (`Misafir-XXXX`).
+- Misafir bilgileri `guest.info` key'i ile localStorage'da saklanir.
+- Flashcard ilerleme verileri `progress.flashcard` key'i ile misafir kullaniciya bagli tutulur.
+- Bu yapi backend entegrasyonunda kayitli hesaba gecis ve veri tasima icin temel hazirlar.
 
 ## 📂 Proje Yapısı
 

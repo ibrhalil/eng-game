@@ -3,16 +3,16 @@ import type {
   MouseEvent as ReactMouseEvent,
   PointerEvent as ReactPointerEvent,
 } from 'react';
-import { FiPlay, FiSquare } from 'react-icons/fi';
-import type { Word } from '../../../types';
-import { BADGE_COLOR_BY_ACTION, BADGE_ICON_BY_ACTION, PART_OF_SPEECH_LABEL } from '../constants';
+import { FiCheck, FiPlay, FiRotateCcw, FiSquare, FiStar } from 'react-icons/fi';
+import type { FlashcardStatus, Word } from '../../../types';
+import { PART_OF_SPEECH_LABEL } from '../constants';
 import { useWordPronunciation } from '../hooks/useWordPronunciation';
-import type { WordAction } from '../types';
 import { highlightWordInExample } from '../utils/highlightWordInExample';
 
 interface FlashcardDeckProps {
   word: Word;
-  currentAction?: WordAction;
+  currentStatus?: FlashcardStatus;
+  isFavorite: boolean;
   isFlipped: boolean;
   cardStyle: CSSProperties;
   onPointerDown: (event: ReactPointerEvent<HTMLDivElement>) => void;
@@ -24,7 +24,8 @@ interface FlashcardDeckProps {
 
 const FlashcardDeck = ({
   word,
-  currentAction,
+  currentStatus,
+  isFavorite,
   isFlipped,
   cardStyle,
   onPointerDown,
@@ -33,7 +34,7 @@ const FlashcardDeck = ({
   onPointerCancel,
   onToggleFlip,
 }: FlashcardDeckProps) => {
-  const BadgeIcon = currentAction ? BADGE_ICON_BY_ACTION[currentAction] : null;
+  const StatusIcon = currentStatus === 'learned' ? FiCheck : currentStatus === 'review' ? FiRotateCcw : null;
   const { isSpeaking, isSupported, togglePronunciation } = useWordPronunciation(word.text);
 
   const handlePronouncePointerDown = (event: ReactPointerEvent<HTMLButtonElement>) => {
@@ -58,9 +59,14 @@ const FlashcardDeck = ({
         <div className={`card-inner ${isFlipped ? 'flipped' : ''}`}>
           <div className="card-front" onDoubleClick={onToggleFlip}>
             <span className={`pos-badge ${word.partOfSpeech}`}>{PART_OF_SPEECH_LABEL[word.partOfSpeech]}</span>
-            {currentAction && BadgeIcon && (
-              <div className="card-action-badge" style={{ background: BADGE_COLOR_BY_ACTION[currentAction] }}>
-                <BadgeIcon aria-hidden="true" />
+            {currentStatus && StatusIcon && (
+              <div className={`card-status-badge ${currentStatus}`}>
+                <StatusIcon aria-hidden="true" />
+              </div>
+            )}
+            {isFavorite && (
+              <div className="card-favorite-badge" aria-label="Marked as favorite">
+                <FiStar aria-hidden="true" />
               </div>
             )}
             <h2>{word.text}</h2>

@@ -3,12 +3,14 @@ import { Link, useLocation } from 'react-router-dom';
 import { FiMenu, FiSettings, FiX } from 'react-icons/fi';
 import { HiOutlineLightBulb, HiOutlineMoon } from 'react-icons/hi2';
 import { useTheme } from '../context/useTheme';
+import { useGuest } from '../context/useGuest';
 import Settings from './Settings';
 import './Header.css';
 
 const Header = () => {
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
+  const { guestUser } = useGuest();
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -48,6 +50,9 @@ const Header = () => {
           </nav>
 
           <div className="app-header-actions">
+            <span className="guest-badge" title="Local guest session">
+              {guestUser.displayName}
+            </span>
             <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
               {theme === 'light' ? (
                 <HiOutlineMoon className="header-icon" aria-hidden="true" />

@@ -8,7 +8,6 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from 'react';
 import {
-  ACTION_BY_DIRECTION,
   DEAD_ZONE,
   DRAG_BORDER_STYLE_BY_DIRECTION,
   INDICATOR_THRESHOLD,
@@ -19,12 +18,17 @@ import {
 import type { DragOffset, SwipeDirection, WordAction } from '../types';
 import type { Word } from '../../../types';
 
+const STATUS_BY_DIRECTION: Record<'left' | 'right', Exclude<WordAction, 'favorite'>> = {
+  left: 'review',
+  right: 'learned',
+};
+
 interface UseFlashcardSwipeResult {
   currentIndex: number;
   isFlipped: boolean;
-  actions: Record<string, WordAction>;
   dragDirection: SwipeDirection | null;
-  currentAction: WordAction | undefined;
+  currentStatus: Exclude<WordAction, 'favorite'> | undefined;
+  isCurrentFavorite: boolean;
   currentWord: Word | null;
   cardStyle: CSSProperties;
   setIsFlipped: (value: boolean | ((value: boolean) => boolean)) => void;
@@ -33,6 +37,13 @@ interface UseFlashcardSwipeResult {
   onPointerMove: (event: ReactPointerEvent<HTMLDivElement>) => void;
   onPointerUp: (event: ReactPointerEvent<HTMLDivElement>) => void;
   onPointerCancel: () => void;
+}
+
+interface UseFlashcardSwipeOptions {
+  initialStatuses?: Record<string, Exclude<WordAction, 'favorite'>>;
+  initialFavorites?: Record<string, boolean>;
+  onStatusChange?: (wordId: string, status: Exclude<WordAction, 'favorite'>) => void;
+  onFavoriteChange?: (wordId: string, isFavorite: boolean) => void;
 }
 
 const getExitStyle = (direction: SwipeDirection, fromOffset: DragOffset = { x: 0, y: 0 }): CSSProperties => {
@@ -66,10 +77,16 @@ const getExitStyle = (direction: SwipeDirection, fromOffset: DragOffset = { x: 0
   };
 };
 
-export const useFlashcardSwipe = (words: Word[]): UseFlashcardSwipeResult => {
+export const useFlashcardSwipe = (words: Word[], options?: UseFlashcardSwipeOptions): UseFlashcardSwipeResult => {
+  const initialStatuses = options?.initialStatuses;
+  const initialFavorites = options?.initialFavorites;
+  const onStatusChange = options?.onStatusChange;
+  const onFavoriteChange = options?.onFavoriteChange;
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [actions, setActions] = useState<Record<string, WordAction>>({});
+  const [statuses, setStatuses] = useState<Record<string, Exclude<WordAction, 'favorite'>>>(initialStatuses ?? {});
+  const [favorites, setFavorites] = useState<Record<string, boolean>>(initialFavorites ?? {});
   const [swiped, setSwiped] = useState<SwipeDirection | null>(null);
   const [dragDirection, setDragDirection] = useState<SwipeDirection | null>(null);
   const [dragOffset, setDragOffset] = useState<DragOffset>({ x: 0, y: 0 });
@@ -84,7 +101,8 @@ export const useFlashcardSwipe = (words: Word[]): UseFlashcardSwipeResult => {
   const isAnimating = useRef(false);
 
   const currentWord = words[currentIndex] ?? null;
-  const currentAction = currentWord ? actions[currentWord.id] : undefined;
+  const currentStatus = currentWord ? statuses[currentWord.id] : undefined;
+  const isCurrentFavorite = currentWord ? Boolean(favorites[currentWord.id]) : false;
 
   const resetPointer = useCallback(() => {
     pointerDown.current = false;
@@ -102,35 +120,32 @@ export const useFlashcardSwipe = (words: Word[]): UseFlashcardSwipeResult => {
       }
 
       if (direction === 'down') {
-        setActions((previousActions) => {
-          if (previousActions[currentWord.id] !== 'favorite') {
-            return previousActions;
-          }
-
-          const nextActions = { ...previousActions };
-          delete nextActions[currentWord.id];
-          return nextActions;
-        });
+        setFavorites((previousFavorites) => ({
+          ...previousFavorites,
+          [currentWord.id]: false,
+        }));
+        onFavoriteChange?.(currentWord.id, false);
         resetPointer();
         return;
       }
-
-      const actionKey = ACTION_BY_DIRECTION[direction];
 
       if (direction === 'up') {
-        setActions((previousActions) => ({
-          ...previousActions,
-          [currentWord.id]: actionKey,
+        setFavorites((previousFavorites) => ({
+          ...previousFavorites,
+          [currentWord.id]: true,
         }));
+        onFavoriteChange?.(currentWord.id, true);
         resetPointer();
         return;
       }
 
+      const status = STATUS_BY_DIRECTION[direction as 'left' | 'right'];
       isAnimating.current = true;
-      setActions((previousActions) => ({
-        ...previousActions,
-        [currentWord.id]: actionKey,
+      setStatuses((previousStatuses) => ({
+        ...previousStatuses,
+        [currentWord.id]: status,
       }));
+      onStatusChange?.(currentWord.id, status);
 
       setTimeout(() => {
         setIsDraggingUi(false);
@@ -147,7 +162,7 @@ export const useFlashcardSwipe = (words: Word[]): UseFlashcardSwipeResult => {
         isAnimating.current = false;
       }, SWIPE_RELEASE_DELAY_MS + SWIPE_EXIT_ANIMATION_MS);
     },
-    [currentWord, resetPointer, words.length]
+    [currentWord, onFavoriteChange, onStatusChange, resetPointer, words.length]
   );
 
   const handleKeyboard = useCallback(
@@ -178,6 +193,26 @@ export const useFlashcardSwipe = (words: Word[]): UseFlashcardSwipeResult => {
     window.addEventListener('keydown', handleKeyboard);
     return () => window.removeEventListener('keydown', handleKeyboard);
   }, [handleKeyboard]);
+
+  useEffect(() => {
+    if (!words.length) {
+      return;
+    }
+
+    setCurrentIndex((previous) => Math.min(previous, words.length - 1));
+  }, [words.length]);
+
+  useEffect(() => {
+    if (initialStatuses) {
+      setStatuses(initialStatuses);
+    }
+  }, [initialStatuses]);
+
+  useEffect(() => {
+    if (initialFavorites) {
+      setFavorites(initialFavorites);
+    }
+  }, [initialFavorites]);
 
   const cardStyle = useMemo(() => {
     const baseStyle: CSSProperties = {};
@@ -287,9 +322,9 @@ export const useFlashcardSwipe = (words: Word[]): UseFlashcardSwipeResult => {
   return {
     currentIndex,
     isFlipped,
-    actions,
     dragDirection,
-    currentAction,
+    currentStatus,
+    isCurrentFavorite,
     currentWord,
     cardStyle,
     setIsFlipped,
