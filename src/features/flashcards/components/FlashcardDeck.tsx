@@ -65,7 +65,7 @@ const FlashcardDeck = ({
               </div>
             )}
             {isFavorite && (
-              <div className="card-favorite-badge" aria-label="Marked as favorite">
+              <div className={currentStatus ? 'card-favorite-badge' : 'card-favorite-badge solo'} aria-label="Marked as favorite">
                 <FiStar aria-hidden="true" />
               </div>
             )}

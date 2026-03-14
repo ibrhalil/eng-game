@@ -164,6 +164,10 @@
   background: #3b82f6;
 }
 
+.card-favorite-badge.solo {
+  right: 1rem;
+}
+
 .card-status-badge svg,
 .card-favorite-badge svg {
   width: 0.9rem;
